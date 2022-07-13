@@ -1,0 +1,42 @@
+####################################################################
+# define theme
+theme_Publication <- function(base_size=14) {
+  library(grid)
+  library(ggthemes)
+  (theme_foundation(base_size=base_size)
+    + theme(plot.title = element_text(face = "bold",
+                                      size = rel(1.2), hjust = 0.5),
+            text = element_text(),
+            panel.background = element_rect(colour = NA),
+            plot.background = element_rect(colour = NA),
+            panel.border = element_rect(colour = NA),
+            axis.title = element_text(face = "bold",size = rel(1.2)),
+            axis.title.y = element_text(angle=90,vjust =2),
+            axis.title.x = element_text(vjust = -0.2),
+            axis.text = element_text(size = rel(1.2)), 
+            axis.text.x = element_text(size=12,angle=60,hjust = 1),
+            axis.line = element_line(colour="black"),
+            axis.ticks = element_line(),
+            panel.grid.major = element_line(colour="#f0f0f0"),
+            panel.grid.minor = element_blank(),
+            legend.key = element_rect(colour = NA),
+            legend.position = "right",
+            legend.direction = "vertical",
+            legend.key.size= unit(0.2, "cm"),
+            legend.spacing = unit(0, "cm"),
+            legend.title = element_text(face="italic",size=rel(1.0)),
+            legend.text = element_text(size=rel(1.0)),
+            plot.margin=margin(c(20,20,20,20),"mm"),
+            strip.background=element_rect(colour="#f0f0f0",fill="#f0f0f0"),
+            strip.text = element_text(face="bold")
+    ))
+}
+
+
+MT11$X<-as.numeric(rownames(MT11))
+p<-ggplot(MT11,aes(x=X,y=V5/100))+geom_line(size=1.5,color="darkblue")+theme_Publication ()+
+labs(y="methylation level",x="")+
+scale_x_continuous(breaks = c(10,30,50,70,90,110),label=c("3utr","5utr","CpG","codingexons","codingintrons","promoter"))
+
+ggsave("MT1.function.Profile.pdf",p,width=7,height=7)
+ggsave("MT1.function.Profile.png",p,width=7,height=7)
